@@ -45,5 +45,4 @@ This app is released under the following license.
 
 ### The Beerware License
 
-As long as you retain this notice you can do whatever you want with this app. If we meet some day, and you think
-this app is worth it, you can buy me a beer in return.
+As long as you retain this notice you can do whatever you want with this app. If we meet some day, and you think this app is worth it, you can buy me a beer in return.
