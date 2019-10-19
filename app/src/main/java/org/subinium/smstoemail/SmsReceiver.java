@@ -97,16 +97,17 @@ public class SmsReceiver extends BroadcastReceiver {
         Log.d("S2E", "From: " + sender);
 
         PrefManager pm = PrefManager.getInstance(ctx);
+        String email = pm.getUsername();
 
         MaildroidX.Builder b = new MaildroidX.Builder()
                 .smtp(pm.getServer())
-                .smtpUsername(pm.getUsername())
+                .smtpUsername(email)
                 .smtpPassword(pm.getPassword())
                 .smtpAuthentication(true)
                 .port("465")
                 .type(MaildroidXType.PLAIN)
-                .to("binand@gmail.com")
-                .from("binand@gaussnetworks.com")
+                .to(email)
+                .from(email)
                 .subject("SMS From: " + sender)
                 .body("Received At: " + time + "\n===============\n" + body)
                 .onCompleteCallback(new MaildroidX.onCompleteCallback() {
