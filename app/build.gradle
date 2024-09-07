@@ -1,27 +1,78 @@
-apply plugin: 'com.android.application'
+plugins {
+
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
 android {
-    compileSdkVersion 28
+    namespace 'org.subinium.smstoemail'
     defaultConfig {
         applicationId "org.subinium.smstoemail"
-        minSdkVersion 21
-        targetSdkVersion 28
+        compileSdk findProperty("androidsdk.version.compile") as Integer
+        targetSdk findProperty("androidsdk.version.target") as Integer
+        minSdk findProperty("androidsdk.version.minimum") as Integer
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+
+        master {
+
+            // Filled in by allprojects.afterEvaluate
+            // Has to be before buildTypes because signingConfigs is referred there.
+        }
+
+        debug {
+
+            // This is needed for local debugging.
+        }
+    }
     buildTypes {
-        release {
+
+        debug {
+
             minifyEnabled false
+            jniDebuggable true
+            shrinkResources false
+            signingConfig signingConfigs.master
+            enableUnitTestCoverage true
+            enableAndroidTestCoverage true
+        }
+
+        release {
+
+            minifyEnabled true
+            jniDebuggable false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.master
+            enableUnitTestCoverage false
+            enableAndroidTestCoverage false
+        }
+    }
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+    signingConfigs {
+
+        master {
+
+            // Filled in by allprojects.afterEvaluate
+            // Has to be before buildTypes because signingConfigs is referred there.
+        }
+
+        debug {
+
+            // This is needed for local debugging.
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'com.github.nedimf:maildroid:v0.0.3'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.github.nedimf:maildroid:v0.1.1-release'
+    implementation 'com.google.android.material:material:1.12.0'
 }

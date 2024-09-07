@@ -1,2 +1,52 @@
+pluginManagement {
+
+    repositories {
+
+        gradlePluginPortal()
+        google()
+        maven {
+
+            url = 'https://maven.pkg.github.com/binand/mensa'
+            credentials {
+
+                username = getProperty("gpr.user")
+                password = getProperty("gpr.key")
+            }
+        }
+    }
+}
+
+dependencyResolutionManagement {
+
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+    repositories {
+
+        google()
+        mavenCentral()
+        maven {
+
+            url = 'https://jitpack.io'
+        }
+        maven {
+
+            url = 'https://maven.pkg.github.com/binand/mensa'
+            credentials {
+
+                username = getProperty("gpr.user")
+                password = getProperty("gpr.key")
+            }
+        }
+    }
+
+    versionCatalogs {
+
+        create("libs") {
+
+            from("com.radongames:mensa-catalog:1.0.25")
+        }
+    }
+}
+
 include ':app'
-rootProject.name='SMS to Email'
+rootProject.name='SMS2Email'

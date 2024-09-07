@@ -103,7 +103,6 @@ public class SmsReceiver extends BroadcastReceiver {
                 .smtp(pm.getServer())
                 .smtpUsername(email)
                 .smtpPassword(pm.getPassword())
-                .smtpAuthentication(true)
                 .port("465")
                 .type(MaildroidXType.PLAIN)
                 .to(email)
