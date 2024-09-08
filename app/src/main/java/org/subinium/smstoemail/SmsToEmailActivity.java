@@ -1,22 +1,30 @@
 package org.subinium.smstoemail;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.radongames.android.platform.Toaster;
+import com.radongames.core.string.CharNames;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+import lombok.CustomLog;
+
+@AndroidEntryPoint
+@CustomLog
 public class SmsToEmailActivity extends AppCompatActivity {
 
     private static final String SMS_PERMISSION_NAME = "android.permission.RECEIVE_SMS";
     private static final int SMS_PERMISSION_REQ_CODE = 1;
+
+    @Inject
+    Toaster mToaster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +33,15 @@ public class SmsToEmailActivity extends AppCompatActivity {
 
         processLayout();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (checkCallingOrSelfPermission(SMS_PERMISSION_NAME) != PackageManager.PERMISSION_GRANTED) {
 
-            Log.d("S2E", "Runtime permission required");
-            if (checkCallingOrSelfPermission(SMS_PERMISSION_NAME) != PackageManager.PERMISSION_GRANTED) {
-
-                requestPermissions(new String[]{SMS_PERMISSION_NAME}, SMS_PERMISSION_REQ_CODE);
-            }
+            log.debug("Runtime permission required");
+            requestPermissions(new String[]{SMS_PERMISSION_NAME}, SMS_PERMISSION_REQ_CODE);
         }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -44,22 +49,9 @@ public class SmsToEmailActivity extends AppCompatActivity {
         // It is possible that the permissions request interaction with the user is interrupted.
         // In this case you will receive empty permissions and results arrays which should be treated as a cancellation.
 
-        boolean granted = false;
-
-        if (permissions != null && permissions.length > 0 && permissions[0] != null && permissions[0].equals(SMS_PERMISSION_NAME)) {
-
-            granted = grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
-        }
-
-        if (granted) {
-
-            Log.d("S2E", "Permission granted");
-            Toast.makeText(this, "SMS Permission granted", Toast.LENGTH_LONG).show();
-        } else {
-
-            Log.d("S2E", "Permission denied");
-            Toast.makeText(this, "SMS Permission denied", Toast.LENGTH_LONG).show();
-        }
+        String msg = "Permission: " + permissions[0] + CharNames.SPACE + (grantResults[0] == PackageManager.PERMISSION_GRANTED ? "granted" : "denied");
+        log.debug(msg);
+        mToaster.show(msg);
     }
 
     private void processLayout() {
@@ -74,16 +66,12 @@ public class SmsToEmailActivity extends AppCompatActivity {
         etPassword.setText(pm.getPassword());
 
         Button b = findViewById(R.id.b_save);
-        b.setOnClickListener(new View.OnClickListener(){
+        b.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
-
-                PrefManager pm = PrefManager.getInstance(getApplicationContext());
-                pm.setServer(etServer.getText().toString());
-                pm.setUsername(etUsername.getText().toString());
-                pm.setPassword(etPassword.getText().toString());
-            }
+            PrefManager pm1 = PrefManager.getInstance(getApplicationContext());
+            pm1.setServer(etServer.getText().toString());
+            pm1.setUsername(etUsername.getText().toString());
+            pm1.setPassword(etPassword.getText().toString());
         });
     }
 }
