@@ -48,5 +48,5 @@ dependencyResolutionManagement {
     }
 }
 
-include ':app'
-rootProject.name='SMS2Email'
+include ':ForwarderApp'
+rootProject.name='SMS Forwarder'

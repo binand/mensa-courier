@@ -1,4 +1,4 @@
-package org.subinium.smstoemail;
+package in.radongames.smsforwarder;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
-import android.text.TextUtils;
 import android.util.Log;
 
 import java.text.DateFormat;

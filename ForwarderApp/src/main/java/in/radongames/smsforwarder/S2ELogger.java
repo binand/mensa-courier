@@ -1,4 +1,4 @@
-package org.subinium.smstoemail;
+package in.radongames.smsforwarder;
 
 import com.radongames.android.logger.Level;
 import com.radongames.android.logger.LoggerConfig;

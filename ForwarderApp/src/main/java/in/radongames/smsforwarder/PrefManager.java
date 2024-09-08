@@ -1,4 +1,4 @@
-package org.subinium.smstoemail;
+package in.radongames.smsforwarder;
 
 import android.content.Context;
 import android.content.SharedPreferences;

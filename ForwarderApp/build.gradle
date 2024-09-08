@@ -6,9 +6,9 @@ plugins {
 }
 
 android {
-    namespace 'org.subinium.smstoemail'
+    namespace 'in.radongames.smsforwarder'
     defaultConfig {
-        applicationId "org.subinium.smstoemail"
+        applicationId "in.radongames.smsforwarder"
         compileSdk findProperty("androidsdk.version.compile") as Integer
         targetSdk findProperty("androidsdk.version.target") as Integer
         minSdk findProperty("androidsdk.version.minimum") as Integer
