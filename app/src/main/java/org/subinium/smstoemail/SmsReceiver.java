@@ -12,13 +12,19 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import co.nedim.maildroidx.MaildroidX;
 import co.nedim.maildroidx.MaildroidXType;
+import lombok.CustomLog;
 
+@CustomLog
 public class SmsReceiver extends BroadcastReceiver {
 
     private static final DateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
@@ -55,6 +61,8 @@ public class SmsReceiver extends BroadcastReceiver {
                         continue;
                     }
 
+                    logMessage(smsMessage);
+
                     String sender = smsMessage.getOriginatingAddress();
                     if (sender != null) {
 
@@ -71,7 +79,7 @@ public class SmsReceiver extends BroadcastReceiver {
                     }
                 }
 
-                sendEmail(ctx, TextUtils.join(",", senderSet), bodyBuilder.toString(), getFormattedTime(minTime));
+//                sendEmail(ctx, TextUtils.join(",", senderSet), bodyBuilder.toString(), getFormattedTime(minTime));
             }
         }
     }
@@ -90,6 +98,19 @@ public class SmsReceiver extends BroadcastReceiver {
     private String getFormattedTime(long timestamp) {
 
         return DEFAULT_DATE_FORMAT.format(new Date(timestamp));
+    }
+
+    private void logMessage(SmsMessage smsMessage) {
+
+        log.debug("Originating Address : " + smsMessage.getOriginatingAddress());
+        log.debug("Display Address     : " + smsMessage.getDisplayOriginatingAddress());
+        log.debug("Message Body        : " + smsMessage.getMessageBody());
+        log.debug("Display Body        : " + smsMessage.getDisplayMessageBody());
+        log.debug("Service Centre      : " + smsMessage.getServiceCenterAddress());
+        log.debug("Email From          : " + smsMessage.getEmailFrom());
+        log.debug("Email Body          : " + smsMessage.getEmailBody());
+        log.debug("Pseudo Subject      : " + smsMessage.getPseudoSubject());
+        log.debug("Timestamp           : " + ZonedDateTime.ofInstant(Instant.ofEpochMilli(smsMessage.getTimestampMillis()), ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z")));
     }
 
     private void sendEmail(Context ctx, String sender, String body, String time) {
