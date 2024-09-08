@@ -1,13 +1,19 @@
 package in.radongames.smsforwarder;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.radongames.android.platform.Toaster;
 import com.radongames.core.string.CharNames;
 
@@ -54,6 +60,27 @@ public class SmsToEmailActivity extends AppCompatActivity {
         mToaster.show(msg);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.action_copy_token) {
+
+            copyMyFcmTokenToClipboard();
+        } else if (item.getItemId() == R.id.action_enter_token) {
+
+            pastePeersFcmTokenFromClipboard();
+        }
+
+        return true;
+    }
+
     private void processLayout() {
 
         final EditText etServer = findViewById(R.id.et_server);
@@ -73,5 +100,28 @@ public class SmsToEmailActivity extends AppCompatActivity {
             pm1.setUsername(etUsername.getText().toString());
             pm1.setPassword(etPassword.getText().toString());
         });
+    }
+
+    protected void copyMyFcmTokenToClipboard() {
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+
+            String token = task.getResult();
+            log.debug("FCM Token: [" + token + "]");
+            ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("FCM Token", token);
+            clipboardManager.setPrimaryClip(clip);
+        });
+    }
+
+    protected void pastePeersFcmTokenFromClipboard() {
+
+        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboardManager.hasPrimaryClip()) {
+
+            ClipData.Item item = clipboardManager.getPrimaryClip().getItemAt(0);
+            String token = item.getText().toString();
+            log.debug("Remote Token: [" + token + "]");
+        }
     }
 }
