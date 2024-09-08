@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/ForwarderApp" />
             <option value="$PROJECT_DIR$/ReceiverApp" />
+            <option value="$PROJECT_DIR$/SmsLib" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
