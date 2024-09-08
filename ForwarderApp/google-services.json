@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "1043025053799",
+    "firebase_url": "https://mensa-project.firebaseio.com",
+    "project_id": "mensa-project",
+    "storage_bucket": "mensa-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043025053799:android:a52f84f0c703e3fd9b2cc2",
+        "android_client_info": {
+          "package_name": "in.radongames.smsforwarder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043025053799-po5rvaa6enc68p5dvncondv7meor1oha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxTn8jeBXZO0KDcf3Rm0JF6RS4QLh-Cu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043025053799-po5rvaa6enc68p5dvncondv7meor1oha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043025053799:android:68b2a5e2c7b4fd2d9b2cc2",
+        "android_client_info": {
+          "package_name": "in.radongames.wannabet.playstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043025053799-7eea7uojjnrtu981lsgejtuup4j1ckjj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.radongames.wannabet.playstore",
+            "certificate_hash": "2a792af77977bc7e1622a0aeb397297e233e13da"
+          }
+        },
+        {
+          "client_id": "1043025053799-ut249qnbb9t14st7j6ceg6ljednmjs65.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.radongames.wannabet.playstore",
+            "certificate_hash": "29037812038918e1dd57a827bfc187cb9559b78b"
+          }
+        },
+        {
+          "client_id": "1043025053799-po5rvaa6enc68p5dvncondv7meor1oha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxTn8jeBXZO0KDcf3Rm0JF6RS4QLh-Cu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043025053799-po5rvaa6enc68p5dvncondv7meor1oha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
