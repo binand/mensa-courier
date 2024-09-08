@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/ForwarderApp" />
+            <option value="$PROJECT_DIR$/ReceiverApp" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

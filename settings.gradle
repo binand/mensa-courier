@@ -50,3 +50,4 @@ dependencyResolutionManagement {
 
 include ':ForwarderApp'
 rootProject.name='SMS Forwarder'
+include ':ReceiverApp'
