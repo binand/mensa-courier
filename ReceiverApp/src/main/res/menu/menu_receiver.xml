@@ -2,17 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SmsToEmailActivity">
+    tools:context="in.radongames.smsreceiver.SmsReceiverActivity">
 
     <item
         android:id="@+id/action_copy_token"
         android:orderInCategory="1"
         android:title="@string/action_copy_token"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_enter_token"
-        android:orderInCategory="2"
-        android:title="@string/action_enter_token"
         app:showAsAction="never" />
 </menu>

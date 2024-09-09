@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ReceiverApp</string>
+    <string name="app_name">SMS Receiver</string>
+    <string name="action_copy_token">Copy My Token</string>
 </resources>

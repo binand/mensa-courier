@@ -1,4 +1,4 @@
-package in.radongames.smsforwarder;
+package in.radongames.smsreceiver;
 
 import android.content.Context;
 import android.content.SharedPreferences;

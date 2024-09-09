@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".SmsToEmailActivity">
+    tools:context="in.radongames.smsreceiver.SmsReceiverActivity">
 
     <LinearLayout
         android:id="@+id/ll_server"

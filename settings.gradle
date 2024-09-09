@@ -48,7 +48,7 @@ dependencyResolutionManagement {
     }
 }
 
+rootProject.name='SMS Transfer'
 include ':ForwarderApp'
-rootProject.name='SMS Forwarder'
 include ':ReceiverApp'
 include ':SmsLib'

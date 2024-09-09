@@ -1,4 +1,4 @@
-package in.radongames.smsforwarder;
+package in.radongames.smsreceiver;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -24,7 +24,7 @@ import lombok.CustomLog;
 
 @AndroidEntryPoint
 @CustomLog
-public class SmsToEmailActivity extends AppCompatActivity {
+public class SmsReceiverActivity extends AppCompatActivity {
 
     private static final String SMS_PERMISSION_NAME = "android.permission.RECEIVE_SMS";
     private static final int SMS_PERMISSION_REQ_CODE = 1;
@@ -35,7 +35,7 @@ public class SmsToEmailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sms2email);
+        setContentView(R.layout.activity_smsreceiver);
 
         processLayout();
 
@@ -63,7 +63,7 @@ public class SmsToEmailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_options, menu);
+        getMenuInflater().inflate(R.menu.menu_receiver, menu);
         return true;
     }
 
@@ -73,9 +73,6 @@ public class SmsToEmailActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_copy_token) {
 
             copyMyFcmTokenToClipboard();
-        } else if (item.getItemId() == R.id.action_enter_token) {
-
-            pastePeersFcmTokenFromClipboard();
         }
 
         return true;

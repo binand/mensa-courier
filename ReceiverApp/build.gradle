@@ -7,9 +7,9 @@ plugins {
 }
 
 android {
-    namespace 'in.radongames.smsforwarder'
+    namespace 'in.radongames.smsreceiver'
     defaultConfig {
-        applicationId "in.radongames.smsforwarder"
+        applicationId "in.radongames.smsreceiver"
         compileSdk findProperty("androidsdk.version.compile") as Integer
         targetSdk findProperty("androidsdk.version.target") as Integer
         minSdk findProperty("androidsdk.version.minimum") as Integer
@@ -72,6 +72,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':SmsLib')
 
     implementation 'com.radongames:mensa-core:1.2.18'
     implementation 'com.radongames:mensa-android-lib:1.2.11'

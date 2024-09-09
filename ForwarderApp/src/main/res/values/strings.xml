@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">SMS Forwarder</string>
-    <string name="action_copy_token">Copy My Token</string>
     <string name="action_enter_token">Enter Token</string>
 </resources>

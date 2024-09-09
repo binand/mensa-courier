@@ -1,4 +1,4 @@
-package in.radongames.smsforwarder;
+package in.radongames.smsreceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -24,7 +24,7 @@ import co.nedim.maildroidx.MaildroidXType;
 import lombok.CustomLog;
 
 @CustomLog
-public class SmsReceiver extends BroadcastReceiver {
+public class SmsBroadcastReceiver extends BroadcastReceiver {
 
     private static final DateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
 
