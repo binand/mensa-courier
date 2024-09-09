@@ -24,7 +24,7 @@ import lombok.CustomLog;
 
 @AndroidEntryPoint
 @CustomLog
-public class SmsReceiverActivity extends AppCompatActivity {
+public class ReceiverActivity extends AppCompatActivity {
 
     private static final String SMS_PERMISSION_NAME = "android.permission.RECEIVE_SMS";
     private static final int SMS_PERMISSION_REQ_CODE = 1;
@@ -35,7 +35,7 @@ public class SmsReceiverActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_smsreceiver);
+        setContentView(R.layout.activity_receiver);
 
         processLayout();
 

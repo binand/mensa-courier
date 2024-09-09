@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReceiverApp">
 
-        <activity android:name=".SmsReceiverActivity" android:exported="true">
+        <activity android:name=".ReceiverActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
