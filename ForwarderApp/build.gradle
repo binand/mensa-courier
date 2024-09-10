@@ -68,7 +68,10 @@ android {
 
     packagingOptions {
 
-        resources.excludes.add("META-INF/*")
+        resources.excludes.add("META-INF/DEPENDENCIES")
+        resources.excludes.add("META-INF/INDEX.LIST")
+        resources.excludes.add("META-INF/*.md")
+        resources.excludes.add("META-INF/*.properties")
     }
 
     viewBinding {
