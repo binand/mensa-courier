@@ -39,7 +39,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
         if (action.equals(Telephony.Sms.Intents.SMS_RECEIVED_ACTION)) {
 
-            Log.d("S2E", "Received an SMS");
+            log.debug("Received an SMS");
 
             // Original processing of SMS.
             Object[] allPdus = (Object[]) bundle.get("pdus");
