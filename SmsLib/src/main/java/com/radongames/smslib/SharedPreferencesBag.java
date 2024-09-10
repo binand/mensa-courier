@@ -3,9 +3,15 @@ package com.radongames.smslib;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+
+import com.radongames.core.debug.MapDumper;
 import com.radongames.core.interfaces.Bag;
 
+import java.io.PrintStream;
 import java.util.Iterator;
+import java.util.prefs.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -19,9 +25,9 @@ public class SharedPreferencesBag implements Bag<String> {
     private final SharedPreferences mPrefs;
 
     @Inject
-    public SharedPreferencesBag(@ApplicationContext Context ctx, SharedPreferences prefs) {
+    public SharedPreferencesBag(@ApplicationContext Context ctx) {
 
-        mPrefs = prefs;
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
     }
 
     @Override
@@ -92,5 +98,10 @@ public class SharedPreferencesBag implements Bag<String> {
     public void clear() {
 
         mPrefs.edit().clear().apply();
+    }
+
+    public void dump(PrintStream str) {
+
+        new MapDumper().dump(mPrefs.getAll(), str);
     }
 }
