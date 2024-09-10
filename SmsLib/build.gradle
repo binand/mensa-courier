@@ -1,25 +1,33 @@
 plugins {
+
     id 'com.android.library'
 }
 
 android {
+
     namespace 'com.radongames.smslib'
-    compileSdk 34
 
     defaultConfig {
-        minSdk 24
+
+        compileSdk findProperty("androidsdk.version.compile") as Integer
+        targetSdk findProperty("androidsdk.version.target") as Integer
+        minSdk findProperty("androidsdk.version.minimum") as Integer
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
+
         release {
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -29,7 +37,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.radongames:mensa-core:1.2.18'
+    implementation 'com.radongames:mensa-json:1.0.9'
     implementation 'com.radongames:mensa-android-lib:1.2.11'
+
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation "androidx.preference:preference:1.2.1"
