@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.radongames.android.platform.Toaster;
 import com.radongames.core.string.CharNames;
 import com.radongames.core.string.TextUtils;
+import com.radongames.smslib.SharedPreferencesBag;
 
 import javax.inject.Inject;
 
@@ -31,6 +32,9 @@ public class ForwarderActivity extends AppCompatActivity {
 
     @Inject
     Toaster mToaster;
+
+    @Inject
+    SharedPreferencesBag mTokensBag;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,16 +91,22 @@ public class ForwarderActivity extends AppCompatActivity {
         }
 
         log.debug("Clipboard Token: [" + token + "]");
-        doPaste(token);
+
+        mBinding.tvPastedToken.setText(token);
+
+        if (mTokensBag.has(Constants.FCM_TOKEN_HOLDING_KEY)) {
+
+            log.debug("A token is already stored.");
+        } else {
+
+            mTokensBag.store(Constants.FCM_TOKEN_HOLDING_KEY, token);
+        }
+
+        mTokensBag.dump(log);
     }
 
     private boolean isValidToken(String token) {
 
         return !TextUtils.isEmpty(token);
-    }
-
-    private void doPaste(String token) {
-
-        mBinding.tvPastedToken.setText(token);
     }
 }
