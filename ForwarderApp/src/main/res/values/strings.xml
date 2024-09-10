@@ -2,7 +2,8 @@
     <string name="app_name">SMS Forwarder</string>
     <string name="action_enter_token">Enter Token</string>
 
-    <string name="activity_forwarder_paste_label">Token from Clipboard:</string>
+    <string name="activity_forwarder_paste_label">Stored Token:</string>
     <string name="activity_forwarder_no_token">[No Token]</string>
-    <string name="activity_forwarder_paste_button">Paste</string>
+    <string name="activity_forwarder_paste_button">Paste from Clipboard</string>
+    <string name="activity_forwarder_clear_button">Clear Stored Token</string>
 </resources>

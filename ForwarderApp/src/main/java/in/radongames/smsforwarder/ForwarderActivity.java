@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,7 +50,10 @@ public class ForwarderActivity extends AppCompatActivity {
             requestPermissions(new String[]{SMS_PERMISSION_NAME}, SMS_PERMISSION_REQ_CODE);
         }
 
+        mBinding.tvToken.setText(mTokensBag.retrieve(Constants.FCM_TOKEN_HOLDING_KEY, mBinding.tvToken.getText().toString()));
+
         mBinding.bPaste.setOnClickListener(v -> pasteFcmTokenFromClipboard());
+        mBinding.bClear.setOnClickListener(v -> clearStoredToken());
     }
 
     @Override
@@ -92,17 +96,24 @@ public class ForwarderActivity extends AppCompatActivity {
 
         log.debug("Clipboard Token: [" + token + "]");
 
-        mBinding.tvPastedToken.setText(token);
+        mBinding.tvToken.setText(token);
 
         if (mTokensBag.has(Constants.FCM_TOKEN_HOLDING_KEY)) {
 
-            log.debug("A token is already stored.");
+            log.debug("A token is already stored. Clear it first.");
         } else {
 
             mTokensBag.store(Constants.FCM_TOKEN_HOLDING_KEY, token);
         }
 
         mTokensBag.dump(log);
+    }
+
+    private void clearStoredToken() {
+
+        mTokensBag.discard(Constants.FCM_TOKEN_HOLDING_KEY);
+        mBinding.tvToken.setText(R.string.activity_forwarder_no_token);
+
     }
 
     private boolean isValidToken(String token) {
