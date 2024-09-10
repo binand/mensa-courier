@@ -21,3 +21,4 @@
 .cxx
 keystore.properties
 keystores/
+ForwarderApp/src/main/res/raw/mensa_firebase_key

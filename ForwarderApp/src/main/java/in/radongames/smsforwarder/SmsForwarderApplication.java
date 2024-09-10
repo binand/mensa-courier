@@ -2,8 +2,6 @@ package in.radongames.smsforwarder;
 
 import android.app.Application;
 
-import com.radongames.smslib.SmsLogger;
-
 import dagger.hilt.android.HiltAndroidApp;
 import lombok.CustomLog;
 
