@@ -7,8 +7,11 @@ plugins {
 }
 
 android {
+
     namespace 'in.radongames.smsforwarder'
+
     defaultConfig {
+
         applicationId "in.radongames.smsforwarder"
         compileSdk findProperty("androidsdk.version.compile") as Integer
         targetSdk findProperty("androidsdk.version.target") as Integer
@@ -53,8 +56,15 @@ android {
         }
     }
     packagingOptions {
+
         resources.excludes.add("META-INF/*")
     }
+
+    viewBinding {
+
+        enabled = true
+    }
+
     signingConfigs {
 
         master {
@@ -71,6 +81,7 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':SmsLib')
 

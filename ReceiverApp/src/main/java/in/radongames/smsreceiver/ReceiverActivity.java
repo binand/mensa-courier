@@ -3,7 +3,6 @@ package in.radongames.smsreceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.radongames.android.platform.Toaster;
-import com.radongames.core.string.CharNames;
 
 import javax.inject.Inject;
 
@@ -26,9 +24,6 @@ import lombok.CustomLog;
 @CustomLog
 public class ReceiverActivity extends AppCompatActivity {
 
-    private static final String SMS_PERMISSION_NAME = "android.permission.RECEIVE_SMS";
-    private static final int SMS_PERMISSION_REQ_CODE = 1;
-
     @Inject
     Toaster mToaster;
 
@@ -38,26 +33,6 @@ public class ReceiverActivity extends AppCompatActivity {
         setContentView(R.layout.activity_receiver);
 
         processLayout();
-
-        if (checkCallingOrSelfPermission(SMS_PERMISSION_NAME) != PackageManager.PERMISSION_GRANTED) {
-
-            log.debug("Runtime permission required");
-            requestPermissions(new String[]{SMS_PERMISSION_NAME}, SMS_PERMISSION_REQ_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        // Note: From https://developer.android.com/reference/android/app/Activity
-        // It is possible that the permissions request interaction with the user is interrupted.
-        // In this case you will receive empty permissions and results arrays which should be treated as a cancellation.
-
-        String msg = "Permission: " + permissions[0] + CharNames.SPACE + (grantResults[0] == PackageManager.PERMISSION_GRANTED ? "granted" : "denied");
-        log.debug(msg);
-        mToaster.show(msg);
     }
 
     @Override
@@ -109,16 +84,5 @@ public class ReceiverActivity extends AppCompatActivity {
             ClipData clip = ClipData.newPlainText("FCM Token", token);
             clipboardManager.setPrimaryClip(clip);
         });
-    }
-
-    protected void pastePeersFcmTokenFromClipboard() {
-
-        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboardManager.hasPrimaryClip()) {
-
-            ClipData.Item item = clipboardManager.getPrimaryClip().getItemAt(0);
-            String token = item.getText().toString();
-            log.debug("Remote Token: [" + token + "]");
-        }
     }
 }
