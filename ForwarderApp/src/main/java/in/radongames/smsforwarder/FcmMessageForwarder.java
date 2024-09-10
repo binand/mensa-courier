@@ -53,6 +53,7 @@ public class FcmMessageForwarder implements MessageForwarder {
         String token = mTokensBag.retrieve(Constants.FCM_TOKEN_HOLDING_KEY);
         if (token == null) {
 
+            log.debug("Nowhere to forward to, skipping this one.");
             return;
         }
 
