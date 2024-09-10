@@ -9,6 +9,7 @@ plugins {
 android {
 
     namespace 'in.radongames.smsreceiver'
+
     defaultConfig {
 
         applicationId "in.radongames.smsreceiver"
