@@ -86,6 +86,7 @@ dependencies {
     implementation project(':SmsLib')
 
     implementation 'com.radongames:mensa-core:1.2.18'
+    implementation 'com.radongames:mensa-json:1.0.9'
     implementation 'com.radongames:mensa-android-lib:1.2.11'
 
     implementation 'androidx.appcompat:appcompat:1.7.0'

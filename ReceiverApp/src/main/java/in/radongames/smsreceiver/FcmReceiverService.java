@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.radongames.smslib.SmsContents;
 
 import lombok.CustomLog;
 
@@ -14,10 +15,14 @@ public class FcmReceiverService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage message) {
 
         log.debug("Message From: " + message.getFrom());
-        if (!message.getData().isEmpty()) {
+        if (message.getData().isEmpty()) {
 
-            log.debug("Message data payload: " + message.getData());
+            log.debug("Data is empty. Quitting.");
         }
+
+        SmsContents sms = new SmsContents();
+        sms.applyJson(message.getData().get("sms_payload"));
+        log.debug("Message retrieved: " + sms);
     }
 
     @Override
