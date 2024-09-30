@@ -45,6 +45,7 @@ public class SmsDisplayAdapter extends RecyclerView.Adapter<SmsDisplayAdapter.Sm
     @Override
     public void onBindViewHolder(@NonNull SmsViewHolder holder, int position) {
 
+        log.debug("Binding position: " + position + " to: " + mItems.get(position));
         holder.bind(mItems.get(position));
     }
 
