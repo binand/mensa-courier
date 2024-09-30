@@ -19,7 +19,7 @@ public class SmsEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private Long mId = 0L;
+    private Long mId;
 
     @ColumnInfo(name = "orig_addr")
     private String mOriginatingAddress;
