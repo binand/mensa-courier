@@ -3,8 +3,8 @@ package in.radongames.smsreceiver;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
+import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Upsert;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
@@ -144,9 +144,9 @@ public abstract class SmsDao implements ObservableCrudRepository<SmsEntity, Long
     /*
      * Internal methods.
      */
-    @Upsert
+    @Insert
     protected abstract ListenableFuture<Long> saveInternal(@NonNull SmsEntity entity) throws RepositoryException;
 
-    @Upsert
+    @Insert
     protected abstract ListenableFuture<List<Long>> saveAllInternal(@NonNull List<SmsEntity> entities);
 }
