@@ -43,7 +43,7 @@ dependencyResolutionManagement {
 
         create("libs") {
 
-            from("com.radongames:mensa-catalog:1.0.25")
+            from("com.radongames:mensa-catalog:1.0.27")
         }
     }
 }

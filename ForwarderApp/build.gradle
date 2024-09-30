@@ -50,9 +50,9 @@ android {
 
         release {
 
-            minifyEnabled true
+            minifyEnabled false
             jniDebuggable false
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.master
             enableUnitTestCoverage false
@@ -85,9 +85,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':SmsLib')
 
-    implementation 'com.radongames:mensa-core:1.2.18'
+    implementation 'com.radongames:mensa-core:1.2.22'
     implementation 'com.radongames:mensa-json:1.0.9'
-    implementation 'com.radongames:mensa-android-lib:1.2.11'
+    implementation 'com.radongames:mensa-android-lib:1.2.16'
 
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
