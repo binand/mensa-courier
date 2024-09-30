@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.radongames.android.platform.Toaster;
 import com.radongames.core.string.CharNames;
+import com.radongames.core.string.Padder;
 import com.radongames.core.string.TextUtils;
 import com.radongames.smslib.SharedPreferencesBag;
+import com.radongames.smslib.SmsContents;
 
 import javax.inject.Inject;
 
@@ -36,6 +38,9 @@ public class ForwarderActivity extends AppCompatActivity {
     @Inject
     SharedPreferencesBag mTokensBag;
 
+    @Inject
+    MessageForwarder mForwarder;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -53,6 +58,22 @@ public class ForwarderActivity extends AppCompatActivity {
 
         mBinding.bPaste.setOnClickListener(v -> pasteFcmTokenFromClipboard());
         mBinding.bClear.setOnClickListener(v -> clearStoredToken());
+
+        mBinding.bSendTest.setOnClickListener(v -> {
+
+            long now = System.currentTimeMillis();
+
+            String seq = Padder.pad3((int)(now % 1000));
+            SmsContents sms = new SmsContents();
+            sms.setOriginatingAddress("+919876543210");
+            sms.setDisplayOriginatingAddress("+919876543210");
+            sms.setMessageBody("Test " + seq);
+            sms.setDisplayMessageBody("Test " + seq);
+            sms.setTimestamp(now / 1000);
+
+            mForwarder.forward(sms);
+            mToaster.show("Test: " + seq);
+        });
     }
 
     @Override

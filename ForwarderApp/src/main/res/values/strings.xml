@@ -6,4 +6,5 @@
     <string name="activity_forwarder_no_token">[No Token]</string>
     <string name="activity_forwarder_paste_button">Paste from Clipboard</string>
     <string name="activity_forwarder_clear_button">Clear Stored Token</string>
+    <string name="activity_forwarder_send_test_button">Send Test Message</string>
 </resources>
