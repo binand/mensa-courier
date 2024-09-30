@@ -6,12 +6,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import in.radongames.smsreceiver.databinding.ActivityReceiverBinding;
@@ -23,14 +26,19 @@ public class ReceiverActivity extends AppCompatActivity {
 
     private ActivityReceiverBinding mBinding;
 
+    @Inject
+    SmsDisplayAdapter mAdapter;
+
+    @Inject
+    SmsViewModel mSmsModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         mBinding = ActivityReceiverBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
-
-        processLayout();
+        setupMessagesView();
     }
 
     @Override
@@ -51,21 +59,15 @@ public class ReceiverActivity extends AppCompatActivity {
         return true;
     }
 
-    private void processLayout() {
+    private void setupMessagesView() {
 
-        PrefManager pm = PrefManager.getInstance(this);
-        mBinding.etServer.setText(pm.getServer());
-        mBinding.etUsername.setText(pm.getUsername());
-        mBinding.etPassword.setText(pm.getPassword());
+        RecyclerView rv = mBinding.rvMessagesList;
 
-        Button b = findViewById(R.id.b_save);
-        b.setOnClickListener(v -> {
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(mAdapter);
 
-            PrefManager pm1 = PrefManager.getInstance(getApplicationContext());
-            pm1.setServer(mBinding.etServer.getText().toString());
-            pm1.setUsername(mBinding.etUsername.getText().toString());
-            pm1.setPassword(mBinding.etPassword.getText().toString());
-        });
+        mSmsModel.getCount().observe(this, count -> log.debug("Loaded db with: " + count));
+        mSmsModel.getMessages().observe(this, smsContents -> mAdapter.setMessages(smsContents));
     }
 
     protected void copyFcmTokenToClipboard() {
