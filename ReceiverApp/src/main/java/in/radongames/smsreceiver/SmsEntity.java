@@ -8,10 +8,12 @@ import androidx.room.PrimaryKey;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity(tableName = "messages")
 @Getter
 @Setter
+@ToString
 public class SmsEntity {
 
     @NonNull
