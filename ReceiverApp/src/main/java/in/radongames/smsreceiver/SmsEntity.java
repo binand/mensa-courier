@@ -38,6 +38,5 @@ public class SmsEntity {
     @ColumnInfo(name = "pseudo_subj")
     private String mPseudoSubject;
     @ColumnInfo(name = "timestamp")
-    @Ignore
     private long mTimestamp;
 }
