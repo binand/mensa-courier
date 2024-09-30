@@ -10,6 +10,7 @@ import android.telephony.SmsMessage;
 import androidx.annotation.NonNull;
 
 import com.radongames.smslib.SmsContents;
+import com.radongames.smslib.SmsTimestampConverter;
 
 import javax.inject.Inject;
 
@@ -22,6 +23,9 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
     @Inject
     MessageForwarder mForwarder;
+
+    @Inject
+    SmsTimestampConverter mConverter;
 
     @Override
     public void onReceive(Context ctx, Intent intent) {
@@ -75,7 +79,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
         sms.setEmailFrom(smsMessage.getEmailFrom());
         sms.setEmailBody(smsMessage.getEmailBody());
         sms.setPseudoSubject(smsMessage.getPseudoSubject());
-        sms.setTimestamp(smsMessage.getTimestampMillis());
+        sms.setTimestamp(mConverter.forward(smsMessage.getTimestampMillis()));
         return sms;
     }
 }

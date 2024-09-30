@@ -69,7 +69,7 @@ public class SmsDisplayAdapter extends RecyclerView.Adapter<SmsDisplayAdapter.Sm
         public void bind(SmsContents sms) {
 
             mBinding.tvFrom.setText(sms.getDisplayOriginatingAddress());
-            mBinding.tvTimestamp.setText(sms.getTimestamp() + "");
+            mBinding.tvTimestamp.setText(sms.getTimestamp());
             mBinding.tvMessage.setText(sms.getDisplayMessageBody());
         }
     }

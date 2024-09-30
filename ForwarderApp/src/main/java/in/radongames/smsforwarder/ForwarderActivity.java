@@ -16,6 +16,7 @@ import com.radongames.core.string.Padder;
 import com.radongames.core.string.TextUtils;
 import com.radongames.smslib.SharedPreferencesBag;
 import com.radongames.smslib.SmsContents;
+import com.radongames.smslib.SmsTimestampConverter;
 
 import javax.inject.Inject;
 
@@ -40,6 +41,9 @@ public class ForwarderActivity extends AppCompatActivity {
 
     @Inject
     MessageForwarder mForwarder;
+
+    @Inject
+    SmsTimestampConverter mConverter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,7 +75,7 @@ public class ForwarderActivity extends AppCompatActivity {
             sms.setDisplayOriginatingAddress("+919876543210");
             sms.setMessageBody("Test " + seq);
             sms.setDisplayMessageBody("Test " + seq);
-            sms.setTimestamp(now / 1000);
+            sms.setTimestamp(mConverter.forward(now));
 
             mForwarder.forward(sms);
             mToaster.show("Test: " + seq);

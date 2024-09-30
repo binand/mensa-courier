@@ -35,7 +35,7 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
     @SerializedName("pseudo_subj")
     private String mPseudoSubject;
     @SerializedName("timestamp")
-    private long mTimestamp;
+    private String mTimestamp;
 
     @JsonExclude
     @ToString.Exclude
