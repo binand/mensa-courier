@@ -7,6 +7,7 @@ import androidx.preference.PreferenceManager;
 
 import com.radongames.core.debug.MapDumper;
 import com.radongames.core.interfaces.Bag;
+import com.radongames.core.string.CharNames;
 
 import java.io.PrintStream;
 import java.util.Iterator;
@@ -71,7 +72,17 @@ public class SharedPreferencesBag implements Bag<String> {
     @Override
     public void merge(@NonNull String key, @NonNull String val) {
 
-        throw new UnsupportedOperationException("SharedPreferences cannot be Mergeable at this point.");
+        if (has(key)) {
+
+            String storedVal = retrieve(key);
+            if (storedVal != null) {
+
+                replace(key, storedVal + CharNames.COMMA + val);
+                return;
+            }
+        }
+
+        store(key, val);
     }
 
     @Override
