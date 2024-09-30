@@ -36,7 +36,10 @@ public class FcmMessageForwarder implements MessageForwarder {
 
             creds = GoogleCredentials.fromStream(ins);
             FirebaseOptions options = FirebaseOptions.builder().setCredentials(creds).build();
-            FirebaseApp.initializeApp(options);
+            if (FirebaseApp.getApps().isEmpty()) {
+
+                FirebaseApp.initializeApp(options);
+            }
         } catch (IOException e) {
 
             throw new RuntimeException(e);
