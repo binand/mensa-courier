@@ -59,6 +59,8 @@ public class ForwarderActivity extends AppCompatActivity {
         mBinding.bPaste.setOnClickListener(v -> pasteFcmTokenFromClipboard());
         mBinding.bClear.setOnClickListener(v -> clearStoredToken());
 
+        mBinding.tvSentSeqs.setText(mTokensBag.retrieve("test-sms-seq-list"));
+
         mBinding.bSendTest.setOnClickListener(v -> {
 
             long now = System.currentTimeMillis();
@@ -73,6 +75,8 @@ public class ForwarderActivity extends AppCompatActivity {
 
             mForwarder.forward(sms);
             mToaster.show("Test: " + seq);
+            mTokensBag.merge("test-sms-seq-list", seq);
+            mBinding.tvSentSeqs.setText(mTokensBag.retrieve("test-sms-seq-list"));
         });
     }
 

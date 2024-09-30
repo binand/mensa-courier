@@ -50,6 +50,15 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_sent_seqs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/b_send_test"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <Button
         android:id="@+id/b_send_test"
         android:layout_width="wrap_content"
