@@ -3,7 +3,6 @@ package com.radongames.smslib;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
 import com.radongames.core.debug.MapDumper;
@@ -11,7 +10,6 @@ import com.radongames.core.interfaces.Bag;
 
 import java.io.PrintStream;
 import java.util.Iterator;
-import java.util.prefs.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
