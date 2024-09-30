@@ -7,15 +7,17 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface SmsMapper extends Converter<SmsEntity, SmsContents> {
+import java.util.List;
+
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = SmsMapper.class)
+public interface SmsListMapper extends Converter<List<SmsEntity>, List<SmsContents>> {
 
     // Entity (Domain Object) to Bean (Data Transfer Object)
     @Override
-    SmsContents forward(SmsEntity entity);
+    List<SmsContents> forward(List<SmsEntity> entities);
 
     // Bean (Data Transfer Object) to Entity (Domain Object)
     @Override
     @InheritInverseConfiguration
-    SmsEntity backward(SmsContents message);
+    List<SmsEntity> backward(List<SmsContents> messages);
 }
