@@ -3,7 +3,6 @@ package in.radongames.smsreceiver;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import lombok.Getter;
@@ -16,11 +15,9 @@ import lombok.ToString;
 @ToString
 public class SmsEntity {
 
-    @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private Long mId;
-
     @ColumnInfo(name = "orig_addr")
     private String mOriginatingAddress;
     @ColumnInfo(name = "orig_daddr")
