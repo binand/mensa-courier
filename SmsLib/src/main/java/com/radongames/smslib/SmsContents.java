@@ -18,6 +18,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 public final class SmsContents implements JsonSerializable<SmsContents>, Mergeable<SmsContents> {
 
+    public static final Long INVALID_ID = -1L;
+
+    @JsonExclude
+    private Long mId = INVALID_ID;
     @SerializedName("orig_addr")
     private String mOriginatingAddress;
     @SerializedName("orig_daddr")
@@ -37,9 +41,6 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
     @SerializedName("timestamp")
     private String mTimestamp;
 
-    @JsonExclude
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     private static final Gson sGson = new GsonCreator().create();
 
     @Override
