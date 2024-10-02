@@ -35,4 +35,9 @@ public class SmsViewModel extends AndroidViewModel {
 
         return mRepository.observableCount();
     }
+
+    public void deleteMessage(SmsContents message) {
+
+        mRepository.delete(message);
+    }
 }

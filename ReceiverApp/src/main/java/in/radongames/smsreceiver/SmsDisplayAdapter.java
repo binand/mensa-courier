@@ -35,6 +35,17 @@ public class SmsDisplayAdapter extends RecyclerView.Adapter<SmsDisplayAdapter.Sm
         notifyItemRangeChanged(0, messages.size());
     }
 
+    public SmsContents removeMessage(int position) {
+
+        SmsContents message = mItems.remove(position);
+        if (message != null) {
+
+            notifyItemRemoved(position);
+        }
+
+        return message;
+    }
+
     @NonNull
     @Override
     public SmsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
