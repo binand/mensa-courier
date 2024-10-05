@@ -7,11 +7,14 @@ import androidx.room.RoomDatabase;
 
 import com.radongames.android.data.ListenableFutureConverter;
 import com.radongames.android.data.LiveDataConverter;
+import com.radongames.core.codec.Base64EncoderDecoder;
 import com.radongames.core.converters.ListConverter;
+import com.radongames.core.interfaces.EncoderDecoder;
 import com.radongames.smslib.SmsContents;
 
 import org.mapstruct.factory.Mappers;
 
+import java.io.Serializable;
 import java.util.List;
 
 import dagger.Module;
@@ -71,5 +74,11 @@ public class ApplicationModule {
     SmsDao provideSmsDao(SmsDatabase db) {
 
         return db.getDao();
+    }
+
+    @Provides
+    EncoderDecoder<Serializable> provideEncoderDecoder() {
+
+        return new Base64EncoderDecoder();
     }
 }

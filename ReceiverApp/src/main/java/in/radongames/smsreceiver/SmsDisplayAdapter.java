@@ -8,8 +8,10 @@ import androidx.viewbinding.ViewBinding;
 
 import com.radongames.android.olmur.adapter.OlmurListAdapter;
 import com.radongames.android.olmur.adapter.OlmurViewHolder;
+import com.radongames.core.interfaces.EncoderDecoder;
 import com.radongames.smslib.SmsContents;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(onConstructor_={@Inject})
 @CustomLog
 public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayAdapter.SmsViewHolder> {
+
+    @Inject
+    EncoderDecoder<Serializable> mDecoder;
 
     public void setMessages(List<SmsContents> messages) {
 
@@ -47,7 +52,7 @@ public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayA
     @Override
     public SmsViewHolder createViewHolder(int i, ViewGroup parent) {
 
-        return new SmsViewHolder(ItemMessageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new SmsViewHolder(ItemMessageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mDecoder);
     }
 
     @NonNull
@@ -73,11 +78,13 @@ public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayA
     public static class SmsViewHolder extends OlmurViewHolder<SmsContents> {
 
         ItemMessageBinding mBinding;
+        EncoderDecoder<Serializable> mDecoder;
 
-        public SmsViewHolder(ViewBinding binding) {
+        public SmsViewHolder(ViewBinding binding, EncoderDecoder<Serializable> decoder) {
 
             super(binding.getRoot());
             mBinding = (ItemMessageBinding) binding;
+            mDecoder = decoder;
         }
 
         @Override
@@ -85,7 +92,7 @@ public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayA
 
             mBinding.tvFrom.setText(sms.getDisplayOriginatingAddress());
             mBinding.tvTimestamp.setText(sms.getTimestamp());
-            mBinding.tvMessage.setText(sms.getDisplayMessageBody());
+            mBinding.tvMessage.setText((CharSequence) mDecoder.decode(sms.getDisplayMessageBody()));
         }
     }
 }

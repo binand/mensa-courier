@@ -11,12 +11,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.radongames.android.platform.Toaster;
+import com.radongames.core.interfaces.EncoderDecoder;
 import com.radongames.core.string.CharNames;
 import com.radongames.core.string.Padder;
 import com.radongames.core.string.TextUtils;
 import com.radongames.smslib.SharedPreferencesBag;
 import com.radongames.smslib.SmsContents;
 import com.radongames.smslib.SmsTimestampConverter;
+
+import java.io.Serializable;
 
 import javax.inject.Inject;
 
@@ -44,6 +47,9 @@ public class ForwarderActivity extends AppCompatActivity {
 
     @Inject
     SmsTimestampConverter mConverter;
+
+    @Inject
+    EncoderDecoder<Serializable> mEncoder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,8 +79,8 @@ public class ForwarderActivity extends AppCompatActivity {
             SmsContents sms = new SmsContents();
             sms.setOriginatingAddress("+919876543210");
             sms.setDisplayOriginatingAddress("+919876543210");
-            sms.setMessageBody("Test " + seq);
-            sms.setDisplayMessageBody("Test " + seq);
+            sms.setMessageBody(mEncoder.encode("Test " + seq));
+            sms.setDisplayMessageBody(mEncoder.encode("Test " + seq));
             sms.setTimestamp(mConverter.forward(now));
 
             mForwarder.forward(sms);

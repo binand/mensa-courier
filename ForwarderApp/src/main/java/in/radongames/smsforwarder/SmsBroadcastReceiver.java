@@ -9,8 +9,12 @@ import android.telephony.SmsMessage;
 
 import androidx.annotation.NonNull;
 
+import com.radongames.core.codec.Base64EncoderDecoder;
+import com.radongames.core.interfaces.EncoderDecoder;
 import com.radongames.smslib.SmsContents;
 import com.radongames.smslib.SmsTimestampConverter;
+
+import java.io.Serializable;
 
 import javax.inject.Inject;
 
@@ -26,6 +30,9 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
     @Inject
     SmsTimestampConverter mConverter;
+
+    @Inject
+    EncoderDecoder<Serializable> mEncoder;
 
     @Override
     public void onReceive(Context ctx, Intent intent) {
@@ -73,8 +80,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
         SmsContents sms = new SmsContents();
         sms.setOriginatingAddress(smsMessage.getOriginatingAddress());
         sms.setDisplayOriginatingAddress(smsMessage.getDisplayOriginatingAddress());
-        sms.setMessageBody(smsMessage.getMessageBody());
-        sms.setDisplayMessageBody(smsMessage.getDisplayMessageBody());
+        sms.setMessageBody(mEncoder.encode(smsMessage.getMessageBody()));
+        sms.setDisplayMessageBody(mEncoder.encode(smsMessage.getDisplayMessageBody()));
         sms.setServiceCentreAddress(smsMessage.getServiceCenterAddress());
         sms.setEmailFrom(smsMessage.getEmailFrom());
         sms.setEmailBody(smsMessage.getEmailBody());
