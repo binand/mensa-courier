@@ -38,8 +38,10 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
     private String mEmailBody;
     @SerializedName("pseudo_subj")
     private String mPseudoSubject;
-    @SerializedName("timestamp")
-    private String mTimestamp;
+    @SerializedName("ts_sent")
+    private String mSentAt;
+    @SerializedName("ts_fwded")
+    private String mForwardedAt;
 
     private static final Gson sGson = new GsonCreator().create();
 
@@ -69,7 +71,8 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
         this.setEmailFrom(that.getEmailFrom());
         this.setEmailBody(that.getEmailBody());
         this.setPseudoSubject(that.getPseudoSubject());
-        this.setTimestamp(that.getTimestamp());
+        this.setSentAt(that.getSentAt());
+        this.setForwardedAt(that.getForwardedAt());
 
         return this;
     }

@@ -81,7 +81,8 @@ public class ForwarderActivity extends AppCompatActivity {
             sms.setDisplayOriginatingAddress("+919876543210");
             sms.setMessageBody(mEncoder.encode("Test " + seq + " " + "https://www.google.com"));
             sms.setDisplayMessageBody(mEncoder.encode("Test " + seq + " " + "https://www.google.com"));
-            sms.setTimestamp(mConverter.forward(now));
+            sms.setSentAt(mConverter.forward(now - (60*60*3*1000))); // 3 hours ago
+            sms.setForwardedAt(mConverter.forward(now));
 
             mForwarder.forward(sms);
             mToaster.show("Test: " + seq);

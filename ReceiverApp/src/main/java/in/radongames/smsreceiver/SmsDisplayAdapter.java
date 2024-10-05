@@ -92,7 +92,7 @@ public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayA
         public void bindViewHolder(SmsContents sms) {
 
             mBinding.tvFrom.setText(sms.getDisplayOriginatingAddress());
-            mBinding.tvTimestamp.setText(sms.getTimestamp());
+            mBinding.tvSentTime.setText(sms.getSentAt());
             mBinding.tvMessage.setText((CharSequence) mDecoder.decode(sms.getDisplayMessageBody()));
             Linkify.addLinks(mBinding.tvMessage, Linkify.ALL);
         }
