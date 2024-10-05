@@ -19,6 +19,7 @@ import lombok.ToString;
 public final class SmsContents implements JsonSerializable<SmsContents>, Mergeable<SmsContents> {
 
     public static final Long INVALID_ID = -1L;
+    private static final SmsTimestampConverter sTimestampConverter = new SmsTimestampConverter();
 
     @JsonExclude
     private Long mId = INVALID_ID;
@@ -42,6 +43,8 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
     private String mSentAt;
     @SerializedName("ts_fwded")
     private String mForwardedAt;
+    @JsonExclude
+    private String mReceivedAt;
 
     private static final Gson sGson = new GsonCreator().create();
 
@@ -73,6 +76,7 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
         this.setPseudoSubject(that.getPseudoSubject());
         this.setSentAt(that.getSentAt());
         this.setForwardedAt(that.getForwardedAt());
+        this.setReceivedAt(sTimestampConverter.forward(System.currentTimeMillis()));
 
         return this;
     }

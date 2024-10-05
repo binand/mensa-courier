@@ -33,6 +33,10 @@ public class SmsEntity {
     private String mEmailBody;
     @ColumnInfo(name = "pseudo_subj")
     private String mPseudoSubject;
-    @ColumnInfo(name = "timestamp")
-    private long mTimestamp;
+    @ColumnInfo(name = "ts_sent")
+    private long mSentAt;
+    @ColumnInfo(name = "ts_fwded")
+    private String mForwardedAt;
+    @ColumnInfo(name = "ts_rcvd")
+    private String mReceivedAt;
 }
