@@ -9,10 +9,10 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.radongames.android.olmur.recyclerview.OlmurLayoutManager;
+import com.radongames.android.olmur.recyclerview.OlmurRecyclerView;
 
 import javax.inject.Inject;
 
@@ -61,9 +61,9 @@ public class ReceiverActivity extends AppCompatActivity {
 
     private void setupMessagesView() {
 
-        RecyclerView rv = mBinding.rvMessagesList;
+        OlmurRecyclerView rv = mBinding.rvMessagesList;
 
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setLayoutManager(new OlmurLayoutManager(this));
         rv.setAdapter(mAdapter);
 
         mSmsModel.getCount().observe(this, count -> log.debug("Loaded db with: " + count));

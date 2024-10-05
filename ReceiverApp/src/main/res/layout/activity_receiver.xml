@@ -7,7 +7,7 @@
     android:focusableInTouchMode="true"
     tools:context="in.radongames.smsreceiver.ReceiverActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.radongames.android.olmur.recyclerview.OlmurRecyclerView
         android:id="@+id/rv_messages_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
