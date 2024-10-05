@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SMS Receiver</string>
     <string name="action_copy_token">Copy My Token</string>
+
+    <string name="msg_from">From:</string>
+    <string name="msg_sent_at">Sent:</string>
 </resources>
