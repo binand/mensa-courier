@@ -1,5 +1,6 @@
 package in.radongames.smsreceiver;
 
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -93,6 +94,7 @@ public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayA
             mBinding.tvFrom.setText(sms.getDisplayOriginatingAddress());
             mBinding.tvTimestamp.setText(sms.getTimestamp());
             mBinding.tvMessage.setText((CharSequence) mDecoder.decode(sms.getDisplayMessageBody()));
+            Linkify.addLinks(mBinding.tvMessage, Linkify.ALL);
         }
     }
 }

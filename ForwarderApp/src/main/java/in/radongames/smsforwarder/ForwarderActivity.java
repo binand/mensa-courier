@@ -79,8 +79,8 @@ public class ForwarderActivity extends AppCompatActivity {
             SmsContents sms = new SmsContents();
             sms.setOriginatingAddress("+919876543210");
             sms.setDisplayOriginatingAddress("+919876543210");
-            sms.setMessageBody(mEncoder.encode("Test " + seq));
-            sms.setDisplayMessageBody(mEncoder.encode("Test " + seq));
+            sms.setMessageBody(mEncoder.encode("Test " + seq + " " + "https://www.google.com"));
+            sms.setDisplayMessageBody(mEncoder.encode("Test " + seq + " " + "https://www.google.com"));
             sms.setTimestamp(mConverter.forward(now));
 
             mForwarder.forward(sms);
