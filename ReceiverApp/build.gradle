@@ -85,7 +85,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':SmsLib')
 
-    implementation 'com.radongames:mensa-core:1.2.22'
+    implementation 'com.radongames:mensa-core:1.2.23'
     implementation 'com.radongames:mensa-json:1.0.9'
     implementation 'com.radongames:mensa-android-lib:1.2.19'
 
