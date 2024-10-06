@@ -19,27 +19,31 @@ plugins {
     id 'com.google.dagger.hilt.android' version '2.52' apply false
 }
 
-afterEvaluate { project ->
+allprojects {
 
-    def configName = 'master'
-    def propsFile = project.file('keystore.properties')
-    if (!propsFile.exists()) {
+    afterEvaluate { project ->
 
-        propsFile = rootProject.file('keystore.properties')
-    }
+        def configName = 'master'
+        def propsFile = project.file('keystore.properties')
+        if (!propsFile.exists()) {
 
-    if (propsFile.exists() && project.hasProperty("android") && project.android.signingConfigs.hasProperty(configName)) {
+            propsFile = rootProject.file('keystore.properties')
+        }
 
-        def props = new Properties()
-        props.load(new FileInputStream(propsFile))
+        if (propsFile.exists() && project.hasProperty("android") && project.android.signingConfigs.hasProperty(configName)) {
 
-        android.signingConfigs[configName].storeFile = file(props['storeFile'])
-        android.signingConfigs[configName].storePassword = props['storePassword']
-        android.signingConfigs[configName].keyAlias = props['keyAlias']
-        android.signingConfigs[configName].keyPassword = props['keyPassword']
+            def props = new Properties()
+            props.load(new FileInputStream(propsFile))
+
+            android.signingConfigs[configName].storeFile = file(props['storeFile'])
+            android.signingConfigs[configName].storePassword = props['storePassword']
+            android.signingConfigs[configName].keyAlias = props['keyAlias']
+            android.signingConfigs[configName].keyPassword = props['keyPassword']
+        }
     }
 }
 
 tasks.register('clean', Delete) {
+
     delete rootProject.layout.buildDirectory
 }
