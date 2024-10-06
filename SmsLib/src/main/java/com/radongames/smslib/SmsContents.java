@@ -2,6 +2,7 @@ package com.radongames.smslib;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.radongames.core.converters.EpochStringConverter;
 import com.radongames.core.interfaces.Mergeable;
 import com.radongames.json.annotations.JsonExclude;
 import com.radongames.json.gson.creators.GsonCreator;
@@ -19,7 +20,7 @@ import lombok.ToString;
 public final class SmsContents implements JsonSerializable<SmsContents>, Mergeable<SmsContents> {
 
     public static final Long INVALID_ID = -1L;
-    private static final SmsTimestampConverter sTimestampConverter = new SmsTimestampConverter();
+    private static final EpochStringConverter sConverter = new EpochStringConverter();
 
     @JsonExclude
     private Long mId = INVALID_ID;
@@ -76,7 +77,7 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
         this.setPseudoSubject(that.getPseudoSubject());
         this.setSentAt(that.getSentAt());
         this.setForwardedAt(that.getForwardedAt());
-        this.setReceivedAt(sTimestampConverter.forward(System.currentTimeMillis()));
+        this.setReceivedAt(sConverter.forward(System.currentTimeMillis()));
 
         return this;
     }

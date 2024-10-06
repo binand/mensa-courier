@@ -36,9 +36,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.radongames:mensa-core:1.2.22'
+    implementation 'com.radongames:mensa-core:1.2.23'
     implementation 'com.radongames:mensa-json:1.0.9'
-    implementation 'com.radongames:mensa-android-lib:1.2.16'
+    implementation 'com.radongames:mensa-android-lib:1.2.19'
 
     implementation 'com.google.code.gson:gson:2.10.1'
 

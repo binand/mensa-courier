@@ -9,9 +9,9 @@ import android.telephony.SmsMessage;
 
 import androidx.annotation.NonNull;
 
+import com.radongames.core.converters.EpochStringConverter;
 import com.radongames.core.interfaces.EncoderDecoder;
 import com.radongames.smslib.SmsContents;
-import com.radongames.smslib.SmsTimestampConverter;
 
 import java.io.Serializable;
 
@@ -28,7 +28,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
     MessageForwarder mForwarder;
 
     @Inject
-    SmsTimestampConverter mConverter;
+    EpochStringConverter mConverter;
 
     @Inject
     EncoderDecoder<Serializable> mEncoder;
