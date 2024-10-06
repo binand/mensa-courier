@@ -9,7 +9,6 @@ import android.telephony.SmsMessage;
 
 import androidx.annotation.NonNull;
 
-import com.radongames.core.converters.EpochStringConverter;
 import com.radongames.core.interfaces.EncoderDecoder;
 import com.radongames.smslib.SmsContents;
 
@@ -26,9 +25,6 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
     @Inject
     MessageForwarder mForwarder;
-
-    @Inject
-    EpochStringConverter mConverter;
 
     @Inject
     EncoderDecoder<Serializable> mEncoder;
@@ -85,8 +81,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
         sms.setEmailFrom(smsMessage.getEmailFrom());
         sms.setEmailBody(smsMessage.getEmailBody());
         sms.setPseudoSubject(smsMessage.getPseudoSubject());
-        sms.setSentAt(mConverter.forward(smsMessage.getTimestampMillis()));
-        sms.setForwardedAt(mConverter.forward(System.currentTimeMillis()));
+        sms.setSentAt(smsMessage.getTimestampMillis());
+        sms.setForwardedAt(System.currentTimeMillis());
         return sms;
     }
 }

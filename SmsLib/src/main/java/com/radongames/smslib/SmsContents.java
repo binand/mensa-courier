@@ -2,7 +2,6 @@ package com.radongames.smslib;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import com.radongames.core.converters.EpochStringConverter;
 import com.radongames.core.interfaces.Mergeable;
 import com.radongames.json.annotations.JsonExclude;
 import com.radongames.json.gson.creators.GsonCreator;
@@ -20,7 +19,6 @@ import lombok.ToString;
 public final class SmsContents implements JsonSerializable<SmsContents>, Mergeable<SmsContents> {
 
     public static final Long INVALID_ID = -1L;
-    private static final EpochStringConverter sConverter = new EpochStringConverter();
 
     @JsonExclude
     private Long mId = INVALID_ID;
@@ -41,11 +39,11 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
     @SerializedName("pseudo_subj")
     private String mPseudoSubject;
     @SerializedName("ts_sent")
-    private String mSentAt;
+    private Long mSentAt;
     @SerializedName("ts_fwded")
-    private String mForwardedAt;
+    private Long mForwardedAt;
     @JsonExclude
-    private String mReceivedAt;
+    private Long mReceivedAt;
 
     private static final Gson sGson = new GsonCreator().create();
 
@@ -77,7 +75,7 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
         this.setPseudoSubject(that.getPseudoSubject());
         this.setSentAt(that.getSentAt());
         this.setForwardedAt(that.getForwardedAt());
-        this.setReceivedAt(sConverter.forward(System.currentTimeMillis()));
+        this.setReceivedAt(System.currentTimeMillis());
 
         return this;
     }

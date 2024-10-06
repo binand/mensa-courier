@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.radongames.android.platform.Toaster;
-import com.radongames.core.converters.EpochStringConverter;
 import com.radongames.core.interfaces.EncoderDecoder;
 import com.radongames.core.string.CharNames;
 import com.radongames.core.string.Padder;
@@ -34,6 +33,8 @@ public class ForwarderActivity extends AppCompatActivity {
     private static final String SMS_PERMISSION_NAME = "android.permission.RECEIVE_SMS";
     private static final int SMS_PERMISSION_REQ_CODE = 1;
 
+    private static final long THREE_HOURS_IN_MILLIS = (60 * 60 * 3 * 1000);
+
     private ActivityForwarderBinding mBinding;
 
     @Inject
@@ -44,9 +45,6 @@ public class ForwarderActivity extends AppCompatActivity {
 
     @Inject
     MessageForwarder mForwarder;
-
-    @Inject
-    EpochStringConverter mConverter;
 
     @Inject
     EncoderDecoder<Serializable> mEncoder;
@@ -81,8 +79,8 @@ public class ForwarderActivity extends AppCompatActivity {
             sms.setDisplayOriginatingAddress("+919876543210");
             sms.setMessageBody(mEncoder.encode("Test " + seq + " " + "https://www.google.com"));
             sms.setDisplayMessageBody(mEncoder.encode("Test " + seq + " " + "https://www.google.com"));
-            sms.setSentAt(mConverter.forward(now - (60*60*3*1000))); // 3 hours ago
-            sms.setForwardedAt(mConverter.forward(now));
+            sms.setSentAt(now - THREE_HOURS_IN_MILLIS);
+            sms.setForwardedAt(now);
 
             mForwarder.forward(sms);
             mToaster.show("Test: " + seq);
