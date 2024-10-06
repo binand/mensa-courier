@@ -106,7 +106,18 @@ public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayA
             mBinding.tvFrom.setText(name == null ? sms.getDisplayOriginatingAddress() : name);
             mBinding.tvSentTime.setText(mConverter.forward(sms.getSentAt()));
             mBinding.tvMessage.setText((CharSequence) mDecoder.decode(sms.getDisplayMessageBody()));
+            mBinding.tvDelay1.setText(getDiff(sms.getForwardedAt(), sms.getSentAt()));
+            mBinding.tvDelay2.setText(getDiff(sms.getReceivedAt(), sms.getForwardedAt()));
             Linkify.addLinks(mBinding.tvMessage, Linkify.ALL);
+        }
+
+        private String getDiff(Long m1, Long m2) {
+            if (m1 == null || m2 == null) {
+
+                return "N/A";
+            }
+
+            return String.valueOf((m1 - m2 + 500)/1000);
         }
     }
 }

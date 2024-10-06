@@ -4,4 +4,6 @@
 
     <string name="msg_from">From:</string>
     <string name="msg_sent_at">Sent:</string>
+    <string name="msg_hop_1">Hop 1:</string>
+    <string name="msg_hop_2">Hop 2:</string>
 </resources>
