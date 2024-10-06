@@ -35,6 +35,9 @@ public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayA
     @Inject
     EpochStringConverter mConverter;
 
+    @Inject
+    NameRetriever mNameRetriever;
+
     public void setMessages(List<SmsContents> messages) {
 
         log.debug("setMessages(): Received set of: " + messages.size() + " messages.");
@@ -57,7 +60,7 @@ public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayA
     @Override
     public SmsViewHolder createViewHolder(int i, ViewGroup parent) {
 
-        return new SmsViewHolder(ItemMessageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mDecoder, mConverter);
+        return new SmsViewHolder(ItemMessageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mDecoder, mConverter, mNameRetriever);
     }
 
     @NonNull
@@ -85,19 +88,22 @@ public class SmsDisplayAdapter extends OlmurListAdapter<SmsContents, SmsDisplayA
         ItemMessageBinding mBinding;
         EncoderDecoder<Serializable> mDecoder;
         EpochStringConverter mConverter;
+        NameRetriever mNameRetriever;
 
-        public SmsViewHolder(ViewBinding binding, EncoderDecoder<Serializable> decoder, EpochStringConverter converter) {
+        public SmsViewHolder(ViewBinding binding, EncoderDecoder<Serializable> decoder, EpochStringConverter converter, NameRetriever retriever) {
 
             super(binding.getRoot());
             mBinding = (ItemMessageBinding) binding;
             mDecoder = decoder;
             mConverter = converter.withFormatter("yyyy-MM-dd HH:mm");
+            mNameRetriever = retriever;
         }
 
         @Override
         public void bindViewHolder(SmsContents sms) {
 
-            mBinding.tvFrom.setText(sms.getDisplayOriginatingAddress());
+            String name = mNameRetriever.retrieve(sms.getDisplayOriginatingAddress());
+            mBinding.tvFrom.setText(name == null ? sms.getDisplayOriginatingAddress() : name);
             mBinding.tvSentTime.setText(mConverter.forward(sms.getSentAt()));
             mBinding.tvMessage.setText((CharSequence) mDecoder.decode(sms.getDisplayMessageBody()));
             Linkify.addLinks(mBinding.tvMessage, Linkify.ALL);
