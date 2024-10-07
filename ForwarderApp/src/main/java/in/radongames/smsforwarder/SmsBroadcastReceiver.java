@@ -10,6 +10,7 @@ import android.telephony.SmsMessage;
 import androidx.annotation.NonNull;
 
 import com.radongames.core.interfaces.EncoderDecoder;
+import com.radongames.smslib.SharedPreferencesBag;
 import com.radongames.smslib.SmsContents;
 
 import java.io.Serializable;
@@ -29,37 +30,64 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
     @Inject
     EncoderDecoder<Serializable> mEncoder;
 
+    @Inject
+    SharedPreferencesBag mBag;
+
     @Override
     public void onReceive(Context ctx, Intent intent) {
 
         String action = intent.getAction();
         Bundle bundle = intent.getExtras();
 
-        if (bundle == null || action == null) {
+        if (bundle == null || action == null || !action.equals(Telephony.Sms.Intents.SMS_RECEIVED_ACTION)) {
 
             return;
         }
 
-        if (action.equals(Telephony.Sms.Intents.SMS_RECEIVED_ACTION)) {
+        log.debug("Received an SMS");
 
-            log.debug("Received an SMS");
+        Object[] allPdus = (Object[]) bundle.get("pdus");
+        String format = bundle.getString("format");
 
-            Object[] allPdus = (Object[]) bundle.get("pdus");
-            String format = bundle.getString("format");
+        if (allPdus != null) {
 
-            if (allPdus != null) {
+            int pduCount = 0;
+            SmsContents message = null;
+            StringBuilder msgBuilder = new StringBuilder();
+            StringBuilder dMsgBuilder = new StringBuilder();
+            for (Object pdu : allPdus) {
 
-                for (Object pdu : allPdus) {
+                SmsMessage smsMessage = createMessage(pdu, format);
+                if (pduCount == 0) {
 
-                    SmsMessage smsMessage = createMessage(pdu, format);
                     if (smsMessage == null) {
 
                         continue;
                     }
 
-                    SmsContents sms = mapContents(smsMessage);
-                    mForwarder.forward(sms);
+                    /*
+                     * Map the metadata of the message only once.
+                     */
+                    message = mapContents(smsMessage);
                 }
+
+                msgBuilder.append(smsMessage.getMessageBody());
+                dMsgBuilder.append(smsMessage.getDisplayMessageBody());
+                pduCount++;
+            }
+
+            if (message != null) {
+
+                /*
+                 * At least one PDU had usable data. We combine all PDUs with usable data into one long message.
+                 * But then we send across only the first 80 characters of it.
+                 */
+                int transmitLen = 80;
+                String msg = mEncoder.encode(msgBuilder.length() >= transmitLen ? msgBuilder.substring(0, transmitLen - 3) + "..." : msgBuilder.toString());
+                String dMsg = mEncoder.encode(msgBuilder.length() >= transmitLen ? msgBuilder.substring(0, transmitLen - 3) + "..." : msgBuilder.toString());
+                message.setMessageBody(msg);
+                message.setDisplayMessageBody(dMsg);
+                mForwarder.forward(message);
             }
         }
     }
@@ -75,14 +103,19 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
         SmsContents sms = new SmsContents();
         sms.setOriginatingAddress(smsMessage.getOriginatingAddress());
         sms.setDisplayOriginatingAddress(smsMessage.getDisplayOriginatingAddress());
-        sms.setMessageBody(mEncoder.encode(smsMessage.getMessageBody()));
-        sms.setDisplayMessageBody(mEncoder.encode(smsMessage.getDisplayMessageBody()));
+        sms.setDestinationAddress(mBag.retrieve(BagKeyNames.Key_OWN_NUMBER));
+        /*
+         * These two are set in the caller itself.
+         */
+//        sms.setMessageBody(mEncoder.encode(smsMessage.getMessageBody()));
+//        sms.setDisplayMessageBody(mEncoder.encode(smsMessage.getDisplayMessageBody()));
         sms.setServiceCentreAddress(smsMessage.getServiceCenterAddress());
         sms.setEmailFrom(smsMessage.getEmailFrom());
         sms.setEmailBody(smsMessage.getEmailBody());
         sms.setPseudoSubject(smsMessage.getPseudoSubject());
         sms.setSentAt(smsMessage.getTimestampMillis());
         sms.setForwardedAt(System.currentTimeMillis());
+
         return sms;
     }
 }

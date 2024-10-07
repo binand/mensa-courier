@@ -55,6 +55,7 @@ public class ForwarderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = ActivityForwarderBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+        mTokensBag.store(BagKeyNames.Key_OWN_NUMBER, "+917760992800");
 
         if (checkCallingOrSelfPermission(SMS_PERMISSION_NAME) != PackageManager.PERMISSION_GRANTED) {
 
@@ -62,7 +63,7 @@ public class ForwarderActivity extends AppCompatActivity {
             requestPermissions(new String[]{SMS_PERMISSION_NAME}, SMS_PERMISSION_REQ_CODE);
         }
 
-        mBinding.tvToken.setText(mTokensBag.retrieve(Constants.FCM_TOKEN_HOLDING_KEY, mBinding.tvToken.getText().toString()));
+        mBinding.tvToken.setText(mTokensBag.retrieve(BagKeyNames.KEY_FCM_TOKEN, mBinding.tvToken.getText().toString()));
 
         mBinding.bPaste.setOnClickListener(v -> pasteFcmTokenFromClipboard());
         mBinding.bClear.setOnClickListener(v -> clearStoredToken());
@@ -131,12 +132,12 @@ public class ForwarderActivity extends AppCompatActivity {
 
         mBinding.tvToken.setText(token);
 
-        if (mTokensBag.has(Constants.FCM_TOKEN_HOLDING_KEY)) {
+        if (mTokensBag.has(BagKeyNames.KEY_FCM_TOKEN)) {
 
             log.debug("A token is already stored. Clear it first.");
         } else {
 
-            mTokensBag.store(Constants.FCM_TOKEN_HOLDING_KEY, token);
+            mTokensBag.store(BagKeyNames.KEY_FCM_TOKEN, token);
         }
 
         mTokensBag.dump(log);
@@ -144,7 +145,7 @@ public class ForwarderActivity extends AppCompatActivity {
 
     private void clearStoredToken() {
 
-        mTokensBag.discard(Constants.FCM_TOKEN_HOLDING_KEY);
+        mTokensBag.discard(BagKeyNames.KEY_FCM_TOKEN);
         mBinding.tvToken.setText(R.string.activity_forwarder_no_token);
 
     }

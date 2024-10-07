@@ -21,6 +21,8 @@ public class SmsEntity {
     private String mOriginatingAddress;
     @ColumnInfo(name = "orig_daddr")
     private String mDisplayOriginatingAddress;
+    @ColumnInfo(name = "dest_addr")
+    private String mDestinationAddress;
     @ColumnInfo(name = "msg_body")
     private String mMessageBody;
     @ColumnInfo(name = "msg_dbody")

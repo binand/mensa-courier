@@ -26,6 +26,8 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
     private String mOriginatingAddress;
     @SerializedName("orig_daddr")
     private String mDisplayOriginatingAddress;
+    @SerializedName("dest_addr")
+    private String mDestinationAddress;
     @SerializedName("msg_body")
     private String mMessageBody;
     @SerializedName("msg_dbody")
@@ -67,6 +69,7 @@ public final class SmsContents implements JsonSerializable<SmsContents>, Mergeab
 
         this.setOriginatingAddress(that.getOriginatingAddress());
         this.setDisplayOriginatingAddress(that.getDisplayOriginatingAddress());
+        this.setDestinationAddress(that.getDestinationAddress());
         this.setMessageBody(that.getMessageBody());
         this.setDisplayMessageBody(that.getDisplayMessageBody());
         this.setServiceCentreAddress(that.getServiceCentreAddress());
