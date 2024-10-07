@@ -12,14 +12,23 @@ android {
 
     defaultConfig {
 
-        applicationId "in.radongames.smsreceiver"
-
         compileSdk findProperty("androidsdk.version.compile") as Integer
         targetSdk findProperty("androidsdk.version.target") as Integer
         minSdk findProperty("androidsdk.version.minimum") as Integer
 
-        versionCode 1
-        versionName "1.0"
+        def versionBase = 10101
+        def productName = "ReceiverApp"
+
+        applicationId "in.radongames.smsreceiver"
+
+        versionCode generateVersionAsInt(versionBase)
+        versionName generateVersionAsString(versionBase)
+
+        archivesBaseName = "${productName}-v${versionName}"
+
+        // Set some globals.
+        project.ext.productName = productName
+        project.ext.productVersion = versionName
     }
 
     signingConfigs {

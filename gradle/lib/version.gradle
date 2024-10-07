@@ -1,0 +1,26 @@
+def generateVersionAsInt(vBase) {
+
+    return vBase
+}
+
+def generateVersionAsString(vBase) {
+
+    def p2 = vBase.intdiv(10000)
+    def p1 = (vBase - p2 * 10000).intdiv(100)
+    def p0 = (vBase - p2 * 10000 - p1 * 100)
+
+    if (p2 == 0) {
+
+        return p1 + "." + p0
+    } else {
+
+        return p2 + "." + p1 + "." + p0
+    }
+}
+
+// Export methods.
+ext {
+
+    generateVersionAsInt = this.&generateVersionAsInt
+    generateVersionAsString = this.&generateVersionAsString
+}

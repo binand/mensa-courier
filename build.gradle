@@ -19,6 +19,8 @@ plugins {
     id 'com.google.dagger.hilt.android' version '2.52' apply false
 }
 
+apply from: 'gradle/lib/version.gradle'
+
 allprojects {
 
     afterEvaluate { project ->
