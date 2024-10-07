@@ -131,7 +131,7 @@ public class ReceiverActivity extends AppCompatActivity {
 
         log.debug("handleSwipe(): Deleting: " + position);
         new AlertDialog.Builder(this)
-                .setTitle("Delete message at: " + position + "?")
+                .setTitle("Delete message #" + (position + 1) + "?")
                 .setCancelable(true)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> removeMessage(position))
                 .setNegativeButton(android.R.string.cancel, (dialog, which) -> handleCancel(position))
